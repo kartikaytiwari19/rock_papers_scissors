@@ -9,27 +9,36 @@ function game(playerSelection,computerSelection)
 {
     if(playerSelection.toLowerCase()=="rock")
     {
-        if(computerSelection=="paper") return "You Lose! Paper beats Rock";
-        else if(computerSelection=="scissors") return "You Win! Rock beats Scissors";
-        else return "Draw";
+        if(computerSelection=="paper") return -1;
+        else if(computerSelection=="scissors") return 1;
+        else return 0;
     }
     else if(playerSelection.toLowerCase()=="paper")
     {
-        if(computerSelection=="scissors") return "You Lose! Scissors beats Paper";
-        else if(computerSelection=="Rock") return "You Win! Paper beats Rock";
-        else return "Draw";
+        if(computerSelection=="scissors") return -1;
+        else if(computerSelection=="Rock") return 1;
+        else return 0;
     }
     else if(playerSelection.toLowerCase()=="scissors")
     {
-        if(computerSelection=="rock") return "You Lose! Rock beats Scissors";
-        else if(computerSelection=="paper") return "You Win! Scissors beats Paper";
-        else return "Draw";
+        if(computerSelection=="rock") return -1;
+        else if(computerSelection=="paper") return 1;
+        else return 0;
     }
 }
+        let playerScore=0;
+        let computerScore=0;
 function play()
 {
-    const playerSelection="Rock";
-    const computerSelection=computerPlay();
-    const result=game(playerSelection,computerSelection);
-    return result;
+    for(let i=0;i<5;i++)
+    {
+        const playerSelection= prompt("Choose your side!");
+        const computerSelection=computerPlay();
+        const result=game(playerSelection,computerSelection);
+        if(result>0) playerScore+=1;
+        else if(result<0) computerScore+=1;
+    }
+    if(playerScore>computerScore) return `You Win! by ${playerScore} to ${computerScore}`;
+    else if(playerScore<computerScore) return `You Lose! by ${playerScore} to ${computerScore}`;
+    else return "Draw";
 }
