@@ -5,6 +5,7 @@ function computerPlay()
     else if(n>0.33 && n<=0.66) return "paper";
     else return "scissors";
 }
+const res=document.createElement('div');
 function game(playerSelection,computerSelection)
 {
     if(playerSelection.toLowerCase()=="rock")
@@ -28,17 +29,36 @@ function game(playerSelection,computerSelection)
 }
         let playerScore=0;
         let computerScore=0;
-function play()
+        let playerSelection;
+function play(playerSelection)
 {
-    for(let i=0;i<5;i++)
-    {
-        const playerSelection= prompt("Choose your side!");
         const computerSelection=computerPlay();
         const result=game(playerSelection,computerSelection);
-        if(result>0) playerScore+=1;
-        else if(result<0) computerScore+=1;
-    }
-    if(playerScore>computerScore) return `You Win! by ${playerScore} to ${computerScore}`;
-    else if(playerScore<computerScore) return `You Lose! by ${playerScore} to ${computerScore}`;
-    else return "Draw";
+        if(result>0) playerScore++;
+        else if(result<0) computerScore++;
+        if(playerScore==5) {res.textContent=`Player wins by ${playerScore} to ${computerScore}`;return;};
+        if(computerScore==5) {res.textContent=`Computer wins by ${playerScore} to ${computerScore}`;return;};
+        res.textContent=`Player: ${playerScore} Computer: ${computerScore}`;
 }
+const container=document.querySelector('#container');
+
+const b1=document.createElement('button');
+const b2=document.createElement('button');
+const b3=document.createElement('button');
+
+b1.innerHTML="Scissors";
+b2.innerHTML="Rock";
+b3.innerHTML="Paper";
+
+
+document.body.appendChild(b1);
+document.body.appendChild(b2);
+document.body.appendChild(b3);
+
+
+b1.addEventListener("click",() => play('scissors'));
+b2.addEventListener("click",() => play('rock'));
+b3.addEventListener("click",() => play('paper'));
+
+res.textContent=`Player: ${playerScore} Computer: ${computerScore}`;
+document.body.appendChild(res);
